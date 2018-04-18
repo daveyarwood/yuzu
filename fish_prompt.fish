@@ -1,9 +1,9 @@
 function taskwarrior_task_count
   which task >/dev/null; or return
   which re-matches >/dev/null; or return
-  set -l tasks_ready (task ready 2>/dev/null | re-matches '(\d+) task')
+  set -l tasks_ready (task ready 2>/dev/null | re-matches '(\d+ tasks?)')
   test $status -eq 0; or return
-  printf ' [%s task ready]' $tasks_ready
+  printf ' (%s ready)' $tasks_ready
 end
 
 function fish_prompt
@@ -23,6 +23,7 @@ function fish_prompt
   set_color --bold $mode_color
   echo -n (prompt_segments | tail -n1)
 
+  set_color normal # undoes --bold
   set_color --dim white
   taskwarrior_task_count
   set_color normal # undoes the --dim
