@@ -25,6 +25,7 @@ function fish_prompt
 
   set_color --dim white
   taskwarrior_task_count
+  set_color normal # undoes the --dim
 
   set_color --bold $mode_color
   printf ' → '
