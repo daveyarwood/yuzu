@@ -7,6 +7,13 @@ function taskwarrior_task_count
 end
 
 function fish_prompt
+  set -l last_command_status $status
+  if test $last_command_status -ne 0
+    set_color --bold red
+    echo "Exit code: $last_command_status"
+    set_color normal
+  end
+
   echo
 
   set -l mode_color
