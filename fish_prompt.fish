@@ -1,6 +1,5 @@
 function taskwarrior_task_count
   which task >/dev/null; or return
-  which re-matches >/dev/null; or return
   set -l tasks_ready (task ready 2>/dev/null | grep -E '[0-9]+ tasks?')
   test $status -eq 0; or return
   printf ' (%s ready)' $tasks_ready
