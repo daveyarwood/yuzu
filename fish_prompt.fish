@@ -1,3 +1,11 @@
+# Returns the number of subshells deep we are.
+#
+# For some reason, in my shell, $SHLVL is 2 initially, so this function adjusts
+# for that and treats my initial nesting level as 0.
+function nesting_level
+  math -- "$SHLVL - 2"
+end
+
 function taskwarrior_task_count
   which task >/dev/null; or return
   set -l tasks_ready (task ready 2>/dev/null | grep -E '[0-9]+ tasks?')
@@ -14,6 +22,10 @@ function fish_prompt
   end
 
   echo
+
+  if test (nesting_level) -gt 0
+    printf "%d) " (nesting_level)
+  end
 
   set -l mode_color
 
